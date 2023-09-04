@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycash/views/features/home/widgets/wallet_card.dart';
+import 'package:mycash/views/features/transaction/widgets/transaction_card.dart';
 import 'package:mycash/views/widgets/appbar.dart';
 
 class Home extends StatefulWidget {
@@ -54,57 +55,56 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            getAppBarUI(),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 350,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(35),
-                  bottomRight: Radius.circular(35),
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getAppBarUI(),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 350,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(35),
+                    bottomRight: Radius.circular(35),
+                  ),
+                ),
+                child: const Column(
+                  children: [
+                    WalletCard(),
+                  ],
                 ),
               ),
-              child: const Column(
-                children: [
-                  WalletCard(),
-                ],
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Giao dịch",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Tất cả",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Giao dịch",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Tất cả",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 15, // The number of items in the list
+                  itemBuilder: (BuildContext context, int index) {
+                    // Build a list item at the specified index
+                    return const TransactionCard();
+                  },
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 15, // The number of items in the list
-                itemBuilder: (BuildContext context, int index) {
-                  // Build a list item at the specified index
-                  return ListTile(
-                    title: Text("Dribble pro"), // Display the item's text
-                    onTap: () {
-                      // Add your onTap action here
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
